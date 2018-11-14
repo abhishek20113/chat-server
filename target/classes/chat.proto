@@ -1,0 +1,39 @@
+syntax = 'proto3';
+package protos;
+
+option java_multiple_files = true;
+
+service Chat {
+    rpc login(LoginRequest) returns (LoginResponse);
+    rpc sendMessage(SendMessageRequest) returns (SendMessageResponse);
+    rpc receiveMessage(ReceiveMessageRequest) returns (stream Message);
+}
+
+message LoginRequest {
+    string userId = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string status = 1;
+    string jwtToken = 2;
+}
+
+message SendMessageRequest {
+    string recipientUserId = 1;
+    string message = 2;
+    string jwtToken = 3;
+}
+
+message SendMessageResponse {
+    string status = 1;
+}
+
+message ReceiveMessageRequest {
+    string jwtToken = 1;
+}
+
+message Message {
+    string from = 1;
+    string message = 2;
+}
